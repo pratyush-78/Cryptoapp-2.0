@@ -28,9 +28,18 @@ const App = () => {
                     <>
                     hello</>
                 </Layout>
-            </div>
-            <div className='footer'>
-
+                <div className='footer'>
+                    <Typography.Title level={5} style={{color:"white", textAlign:"center"}}>
+                            Cryptoverse <br/>
+                            All Rights Reserved.
+                    </Typography.Title>
+                    <Space>
+                        {/* antd 's way of saying that it is a div */}
+                        <Link to="/">Home</Link>
+                        <Link to="/exchanges">Exchanges</Link>
+                        <Link to="/news">News</Link>
+                    </Space>
+                </div>
             </div>
 
             
