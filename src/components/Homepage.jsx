@@ -11,7 +11,7 @@ const { Title } = Typography;   // de-structuring Typography.Title -> Title, so 
 
 const Homepage = () => {
 
-    const { data, isFetching } = useGetcryptosQuery(50);              // call this as hook, then we immediately get the data
+    const { data, isFetching } = useGetcryptosQuery(10);              // call this as hook, then we immediately get the data
     const globalStats = data?.data?.stats;                         // data obj > data > stats or data.data.stats
 
     console.log(data);                                              // at start the data was undefined, so redux toolkit gives us
