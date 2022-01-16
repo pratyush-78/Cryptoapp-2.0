@@ -7,18 +7,33 @@ import { useGetcryptosQuery } from '../services/CryptoApi'          // it contai
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const Cryptocurrencies = () => {
+const Cryptocurrencies = ({ simplified }) => {
 
-
-    const {data:cryptosList, isFetching} = useGetcryptosQuery();           // de- structure, RENAME data as cryptosList
+    const count = simplified ? 10 : 100;
+    const {data:cryptosList, isFetching} = useGetcryptosQuery(count);           // de- structure, RENAME data as cryptosList
 
     const [ cryptos, setCryptos ] = useState(cryptosList?.data?.coins);     // 'cryptos' will become array of coins (& its details)
 
+    const [ input, setInput ] = useState('')
 
+    useEffect( () => {
+        const filteredData = cryptosList?.data?.coins.filter(( coin )=> coin.name.toLowerCase().includes(input) )
+
+        setCryptos(filteredData);
+
+    }, [input])
     if(isFetching)  return 'Loading...'
     // console.log(cryptos)
     return (
         <div>
+            {!simplified ? 
+                <div className='crypto-search-container'>
+                    <input className='crypto-search' placeholder='Search a coin' onChange={(e)=>(setInput(e.target.value))}/>
+                </div>
+                : <></>
+            }
+
+
             <Row gutter={[30,30]} className='crypto-card-container' >
                 {cryptos?.map((currency) => (
                     <Col xs={24} sm={12} lg={6} className='crypto-card' key={currency.id}>
@@ -38,6 +53,7 @@ const Cryptocurrencies = () => {
                         </Link>
                     </Col>
                 ))}
+
             </Row>
         </div>
     )
